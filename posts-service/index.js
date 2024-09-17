@@ -14,18 +14,18 @@ app.get("/posts", (req, res) => {
 });
 
 app.post("/posts", async (req, res) => {
-  const { title } = req.body;
   const id = Date.now();
-  posts[id] = {
-    id,
-    title,
+  const post = {
+    id: id,
+    title: req.body.title || "",
   };
+
+  posts[id] = post;
   try {
     const response = await axios.post("http://localhost:4005/events", {
       type: "PostCreated",
       data: {
-        id,
-        title,
+        ...post,
       },
     });
     console.log(response.data);

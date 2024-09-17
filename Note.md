@@ -13,7 +13,7 @@
 
     - service A
       - auth Middleware --> Router--> Feature A --> DB[A]
-    - service A
+    - service B
       - Auth Middleware --> Router--> Feature B --> DB[B]
         .
         .
@@ -92,6 +92,8 @@
 
       - ## Handling CORS Errors
 
+        - A CORS issue occurs when a client attempts to make a request to a server that has a different origin, and the server does not explicitly allow such cross-origin requests. The browser detects that the client is trying to access a resource from a different origin and blocks the request.
+
       - Fetching and rendering Posts
 
       - Common questions around Async Events
@@ -130,7 +132,7 @@
 
   - ## Why Docker?
 
-    - Docker will create series of container, containers are nothing but isolated computing environment. I has everything to required to run single program
+    - Docker will create series of container, containers are nothing but isolated computing environment. It has everything to required to run single program
 
     - If we need multiple copies any of the service we can create copy of the running container
 
@@ -151,3 +153,134 @@
   - ## Don't Know Docker
 
   - ## Dockerizing the Posts Service
+
+    - docker build .
+      copy instance id
+    - docker run [instance id]
+
+  - ## Review Some Basic commands
+
+    - docker build -t anyflag/posts . [-t tag : anyflag/posts]
+      we will image id and tag
+    - docker run [instance id/ anyflag/posts]
+    - docker run -it anyflag/posts sh [sh: shell]
+      now we are inside the container
+      we can run command inside the container such as ls, mkdir, pwd and so on
+    - to exist CTRL + D
+
+    - docker ps
+      print out information about all of the running containers [id, container tag (anyflag/posts),created ]
+
+    - docker exce -it [container id][cmd]
+      exceute the given command in a running container
+
+    - docker logs [container id]
+      print out logs from the give container
+
+  - # Kubernetes
+
+    - Kubernetes is a tool for running bunch of different containers
+    - We give it some configuration to describe how we want our contaners to run and interact with eachother
+    - to install docker on a windows: open docker desktop => preferences => Kubernetes => enable kuberentes
+
+  - # Kuberenetes tours
+
+    - to se kubernetes version: kubctl version
+    - [dockerfile, index.js,...] =feed into- =>docker => image for posts Service = Kuberenetes clustor=> [Node,Node, Node] <= config file
+    - Node in kubernetes clustor nothing but the virtual machine. It is a computer that's going to run some number of containers for us
+    - config file:
+
+      - Please run 2 copies of posts service
+      - Please all copies of Post to access from network
+
+    - Pod: Once kubernetes find the image running on docker hub, Based on the configuration, it's going to create two containers and randomly distribute these containers among the Node
+
+    - Service: Send me a request and I will forward it to posts
+
+  - # Important Terms fo Kubernetes
+
+    - Kubernetes Cluster:
+
+      - A collection of nodes + a master to manage them
+
+    - Node
+
+      - A virtual machine that will run our containers
+
+    - Pod
+
+      - More or less running container. Technically, a pod can run multiple containers
+
+    - Deployment
+
+      - Monitors a set of pods, make sure they are running and restarts them if they crash
+
+    - Service
+      - Provides an easy-to-remember URL to access a running container
+
+  - # Notes on config files
+
+    - Tells kubernetes about the different deployments, pod, and services(referred to as 'object') that we want to create
+    - Written in YAML syntax
+    - Always store these files with our project source code
+    - config files provide a precise definition of what your cluster is running
+
+  - # Create a Pod
+
+    - docker build -t stramdeveloper/posts:0.0.1 . => t stands for tag
+
+    - create config file in seperate 'infra' folder
+    - cd infra
+    - kubectl apply -f posts.yaml
+      pod/posts create
+    - To get all the different pods running in clusters
+      kubectl get pods
+      NAME READY STATUS RESTART AGE
+      post 1/1 Running 0 50s
+
+  - Understanding a pod spec
+
+    - apiVersion: v1
+      k8s is extensible- we can add in our own custom objects.
+
+    - kind: Pod
+      The type of object we want to create
+
+    - metadata:
+      config option for a object we are going to create
+      name: post
+      when the pod is created, give it a name of posts
+
+    - spec:
+      The exact attributes we want to apply to the object we are about to create
+      containers:
+      We can create many container in a sigle pod
+      - name: posts
+        Make a container with a name of 'post'
+        image: stramdevelopers:0.0.1
+        The exact image we want to use
+
+  - # Common Kubectl commands
+
+    Docker world
+
+    - docker ps
+    - docker exec -it [id] sh
+    - docker logs [id]
+
+    K8s World
+
+    - kubectl get pods
+    - kubectl exec -it [pod_name] sh
+    - kubectl logs [pod_name]
+    - kubectl delete pod [pos_name]
+    - kubectl apply -f [config file name]
+    - kubectl describe pod [pod_name]
+
+  - # Introduction to Deployment
+
+    - A deployment is a kubernetes object that is intended to manage a set of pods, so it might be just one
+    - update the code inside the container which will create new pods and once they are up and running delete old pods.
+
+    - # Creating a Deployment config file
+      kubectl apply -f config-depl.yaml
