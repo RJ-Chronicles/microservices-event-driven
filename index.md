@@ -1,3 +1,238 @@
+# How does react works
+    React is a Javascript library for building user interface. specifically building single page application. With the help of react, developer can create reusable component, manage state effectively and update the interface with minimul efforts. Here is how reacts works
+        1: component based Architecture.
+            with the help of react, developer can create small, independent, reusable UI compoenent by breaking down larg complex application into small chunk. Example that We can create cutom Button components and those component can be reused at varia places.
+        2: JSX syntax:
+            JSX stands for Javascript XML. Which allow developer to write html looking code in javascript file. Under the hook JSX is transformed into React.createElement() calls, which return JavaScript objects describing the UI.
+        3: Virtual DOM:
+            Virtual dom is a light weight in-memory representation of real dom. React use virtual dom to optimize update to actual DOM. When the state of application get change, react compare new virtual dom previous virtual DOM (process called reconciliation). Based on the difference (Diff) react updates the parts of real DOM that have changed, making update faster and more efficient.
+        4: One Way Data-Flow:
+            React follows unidirectional data flow. Data is pass down from parent components to child component via props.
+
+# How many types of DOM in React
+    In react there are two types of DOM
+    1: Real DOM
+        Real DOM is standard dom used by browser to display html page. It represent entire structure of the page as tree node. Downside about real DOM is, manipulation of real DOM is very slow because every change can cause browser to rerender the page.
+    2: Virtual DOM
+        Virtual dom is a light weight in-memory representation of real dom. React use virtual dom to optimize update to actual DOM. When the state of application get change, react compare new virtual dom previous virtual DOM (process called reconciliation). Based on the difference (Diff) react updates the parts of real DOM that have changed, making update faster and more efficient.
+        Benefit: It improves performance by minimizing direct manipulations of the Real DOM, reducing the number of browser re-renders.
+
+# What is hooks in React. Explain built-in hooks
+    Hooks in react are special function that allow developers to use state and other features (such a lifecycle methods) in functional component. Hooks were indroduced in react 16.8 making easier to reuse logic across components.
+    Key benefits of Hooks:
+        - Enable state management and side effiects in functional component
+        - Make easier to share logic between components via custom hooks
+    Common Built-in Hooks
+        1: useState:
+            Used to manage local state in functional component.
+            This hooks will take defaul value as argument and return array with current state value and setter function
+        2: useEffect
+            useEffect allow you to handle side effects such as fetching data, updating DOM and subscribing to events.
+            Runs after the render and can be configured to run on component mount, update or unmout.
+        3: useContext:
+            Used to consume a context value in functional components, eliminating the need for passing props down the tree
+        4: useReducer
+            An alternative to useState to manage more complex state logic. It's similar to redux in terms of defining state updates using action and reducer
+        5: useRef
+            Used to access or modify DOM element directly, or to persist values across renders withou causing re-renders.
+        6: useMemo
+            Used to memoizes a computed value, preventing expesive calculations from being recalculated unless dependencies change
+        7: useCallback
+            Returns memoized version of a function, useful when passing callbacks to optimized child components
+
+# What is dependancy array? Why do we use it?
+    The dependency array in react is used with the hooks such as useEffect, useMemo and useCallback. It specifies the condition under which the hook's effect, memoized function or computed value should be re-executed.
+    whay do we use it:
+        1: Optimize Performance
+            The dependency array prevents unnecessary re-runs of effects or memoized function.
+        2: Control side Effects
+            It allows you to specify exactly when side effects should occur, ensuring they only happen when necessary. (Example such is fetching data again when  the input or filter change)
+        3: Memoization
+            In hooks like useCallback or useMemo, the dependency array ensures that functions or valus are recomputed only when specific dependencies change, preventing recomputation or re-rendering.
+
+# In React list, why do we use key props?
+    In react, the key prop is used to uniquely identify elements in a list when rendering multiple items dynamically. This helps react optimize re-rendering by tracking individual elements efficiently
+    Why use key pros:
+        1: Efficient updates: 
+            When list changes (eg an item is added, removed or reordered), react uses the key to determine which items have changed. Instead of re-rendering the entire list, react only updates the specific items that were changed.
+        2: Maintaining element Identify:
+            Key ensure that elments retain their state or identity between renders.
+        3: Prevent unnecessary re-render:
+            Withoud key, react has trouble identifying which elenent have been added, removed or updated and might rerender unnecessary parts of the list. leads pooer performace
+
+# What is a Higher-Order Component (HOC) in React?
+    A Higher-Order Component is a function that takes a component and returns a new component with additional props or functionality. It allows for code reuse and logic sharing between components.
+
+# What is Redux?
+    Redux is a state management library for JavaScript applications, commonly used with React. It centralizes the entire application state in a single store and allows components to subscribe to specific pieces of the state.
+
+    Core Concepts:
+    Store: Holds the entire state of the application.
+    Actions: Descriptions of what happened (e.g., a button was clicked).
+    Reducers: Pure functions that take the current state and an action, and return the new state.
+    Dispatch: Sends actions to reducers to update the store.
+    Redux helps manage complex state across many components by ensuring a predictable and traceable state flow.
+
+# Explain React Router
+    React Router is a library for handling navigation in React applications. It allows you to create routes for different components and display them based on the URL.
+
+    Routing Components:
+    BrowserRouter: Provides routing functionality for web apps.
+    Route: Defines a mapping between the URL path and the component.
+    Link: Renders links to different routes.
+    Switch: Ensures that only one route is rendered at a time.
+
+# authentication vs authorization in react
+
+    Authentication:
+    What it is: It is the process of verifying who the user is. The goal of authentication is to confirm the user's identity.
+    Example in React: When a user logs in with their credentials (e.g., email and password), the system checks if the provided credentials match the ones stored in the database. Once verified, the user is considered "authenticated."
+    Implementation: Authentication can be implemented in React using libraries like Firebase, Auth0, or custom JWT-based systems. The authenticated state is often stored in local storage, session storage, or cookies, and managed using a state management library (like Redux or React Context).
+
+    What it is: Authorization is the process of determining what the authenticated user is allowed to do. Once authenticated, the system needs to determine what resources the user has permission to access.
+    Example in React: After logging in, an authenticated user may only have access to specific routes or features based on their role (e.g., admin, user, guest). Authorization determines what a user is permitted to do within the app.
+    Implementation: Authorization can be implemented by checking the user's role or permissions before granting access to specific components or routes. This can be done using role-based access control (RBAC) or permission-based models.
+
+
+
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+
+# How does node works?
+    Nodejs is a opensource, light weight, ansynchronous, single threaded, event-driven, and non-blocking i/o javascript run time that allow you to run javascript code on server side. it is build on Google's v8 javascript engine, which is the same engine that powers
+    These are the key concepts of Node.js
+    1: Single Threaded
+        Node.js operate on single thread, which means it processes one task at a time. However, it does not mean it is limited in handling concurrent tasks.
+    2: Event Driven:
+        Node.js uses an event loop to manage asynchronous operations. When event or task occurs (like a netwrok request), it trigger a callaback function, allowing node.js to continue processing other tasks in th mean time
+    3: Non-blocking I/O:
+        non-blocking means that node does not wait for operations like reading files or fetching data from db to complete before moving to next task, It performs tasks asynchronously, handling multiple tasks at once without blocking the main thread.
+    4: Event Loop
+        The vent loop is the core of node.js's concurrency model. it is responsible for handling asynchronous task such as file I/O, network request or timers. when these operations complete, they push their results to the event queue and the event loop processes them one by one.
+    5: Callback functions & Promises:
+        Asynchronous operations in Node.js rely on callback or promises. When asynchronous task is initiated, node.js register a call or a promise to thangle the result of that task and moves on to other tasks.
+
+# Why do use express framework?
+    Express.js is a minimul nodejs framework used for building web applicationa and APIs. Express provides a lightweigth and flexible structure tha enhances the functionality of node.js by offering various features that make developing web servers and handling HTTP  request easier.
+    1: Simplifies HTTP Requests and Responses:
+        Express makes handling HTTP requests (GET, POST, PUT, DELETE) and responses easier. Instead of writing boilerplate code for basic server functionality in Node.js, Express provides clean and intuitive methods.
+    2: Routing:
+        Express offers a robust and easy-to-use routing system, allowing you to define routes for handling different HTTP methods and URL patterns
+    3: Middleware Support:
+    4: Asynchronous and Non-blocking:
+    5: Community and Documentation: Express has a large and active community, with extensive documentation
+
+# Explain middleware in express
+
+    In Express, middleware refers to functions that execute during the request-response cycle. Middleware functions can access the request object (req), response object (res), and the next middleware function in the stack (next()), which allows them to modify the request and response or perform specific tasks before passing control to the next function.
+    use cases:
+    1: Logging
+        Keeping tract of incoming request
+    2: Authentication and Authorization:
+        Checking user dredentials before allowing allowing access to specific routes
+    3: Body Parsering:
+        parsing incoming request bodies
+    4: Error handling: 
+        Catching and responding to errors
+    5: Static file serving:
+        Serving static assets like HTML, CSS and images
+    type: 
+    1: application level: Define directly on the app
+    2: router level middleware: works at router level
+    3: Error Handling middleware: Handle errors occur during request processing.
+    4: Built-in and third party middleware
+
+# Explain body-parser middleware?
+    - Body-parser is a middleware used in Express to parse incoming request bodies, allowing access to the data in different formats, such as JSON, URL-encoded data, or raw data. Before Express version 4.16.0, you had to install and use the body-parser package explicitly, but after this version, it's bundled into Express and can be accessed via express.json() and express.urlencoded().
+
+    Why
+        When a client sends data to the server (e.g., form submissions or API calls), this data is sent as part of the request body. However, by default, Node.js doesn't parse this body automatically. The body-parser middleware helps by parsing the incoming request body and populating the req.body object with the parsed data, so that you can easily access it in your routes.
+
+# Explain path param vs query params. How to get those?
+    Path parameters and query parameters are two ways to pass data in a URL when making requests to a server
+    path Parameters:
+        Path parameters are part of the URL path and are used to identify specific resources. Path parameters are defined using a colon (:) in the route path. You can access the value of this path parameter using req.params.userId.
+        app.get('users/:userId', (req, res)=> {})
+
+    Query Parameters:
+        They are commonly used to provide optional parameters or to refine the results of a request. They are included after the ? in the URL and are separated by &. /search?query=express&limit=10
+
+# app.use() vs app.get
+
+    app.get()
+        app.get() is used to define route handlers for HTTP GET requests. It specifies what should happen when a GET request is made to a specific path
+        Usage:
+            Defines routes for specific paths and handles GET requests.
+            Can include route parameters and query parameters in the path.
+
+    app.use()
+        app.use() is used to define middleware that applies to all routes or a subset of routes. Middleware functions can perform tasks such as logging, authentication, or modifying requests/responses
+        useage:
+            Defines middleware functions that run before route handlers.
+            Can be applied globally (to all routes) or to specific routes.
+
+#  Explain routing in express?
+    Routing in Express is a mechanism that maps HTTP requests to specific route handlers HTTP method (GET, POST, PUT, DELETE, etc.). It allows you to define different endpoints for your application and handle various types of requests to those endpoints.
+    Key concepts:
+        Handler function
+            Functions that process the request and generate the response.
+            Access request data via req and send responses via res.
+        Route Parameter:
+
+        Query Parameter:
+
+# NoSql vs SQL
+    SQL databases:  are relational databases that use structured query language (SQL) for defining and manipulating data. They are known for their ability to handle structured data and enforce data integrity through relationships between tables.
+    Applications requiring complex queries and transactions.
+    Choose if you need strong data consistency, complex transactions, and have a well-defined schema
+
+
+    NoSQL databases:  are non-relational and can handle a variety of data models, including document, key-value, column-family, and graph formats. They are designed for flexible schema design and scalability.
+    Choose if you require flexible schema design, horizontal scaling, and can handle eventual consistency.
+
+# Coding best practice ?
+    1: Write Clear and Readable Code:
+         Use meaningful and descriptive names for variables, functions, and classe
+
+    2: Keep Functions and Methods Small:
+         Each function or method should have a single responsibility or purpose. This makes it easier to test and maintain.
+
+    3: Comment and Document Your Code:
+
+    4: Implement proper error handling to manage and log errors effectively
+    5: Follow SOLID Principles:
+    6: write unit tests
+    7: Follow the DRY principle: Avoid code duplication by creating reusable functions, components, or modules.
+    8: Use tools like ESLint, SonarQube, or CodeClimate to analyze code quality and enforce coding standards
+
+
+# Interface vs type in tS
+    In TypeScript, both type and interface are used to define custom types, but they have some differences in terms of features and use cases.
+
+    - Interface can be merged with other interfaces by using extend keyword
+    -  use interface when you need to define object shapes or classes, especially if you plan to extend or merge interfaces
+
+    - type doe nto support merging. If you need to combine types, you would use intersection
+    - Use type when you need more flexibility with complex types like unions or intersection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 1.  How does react works?
 2.  How may types of DOM in react?
 3.  What is hooks in React. Explain built-in hooks
