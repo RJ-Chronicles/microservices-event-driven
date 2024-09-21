@@ -10,6 +10,7 @@ const posts = {};
 
 app.use;
 app.get("/posts", (req, res) => {
+  // Object.keys(posts).length === 0
   res.send(posts);
 });
 
@@ -40,4 +41,8 @@ app.post("/events", async (req, res) => {
   res.send({});
 });
 
-app.listen(4000, () => console.log("Listening Posts on", 4000));
+app.listen(4000, () => {
+  console.log('V20');
+  console.log('This is latest 509')
+  console.log("Listening Posts on", 4000)
+});
