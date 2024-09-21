@@ -251,7 +251,7 @@
       name: post
       when the pod is created, give it a name of posts
 
-    - spec:
+    - spec: [specification]
       The exact attributes we want to apply to the object we are about to create
       containers:
       We can create many container in a sigle pod
@@ -284,3 +284,35 @@
 
     - # Creating a Deployment config file
       kubectl apply -f config-depl.yaml
+
+    # Commands around deployment:
+        kubectl get deployments
+        kubectl get pod
+        kubectl delete pod pod_name [posts-depl-6d98566985-lvw5z]
+        kubectl get pod
+        kubectl delete deployment
+    
+    # preferred Method for Updating Deployments
+
+    # Networking with Services:
+      Services provides metworking between the pods
+      Types of services:
+        Cluster IP: Setup an easy to remember URL to access a pod. only expose pods in the cluder
+
+        Node Port: Make a pod accessible from outside the cluster. Usually only used for de purposes
+
+        Node Balancer: Make a pod accessible from outside the cluder. This is the right way to expose a pod to the outside world
+
+        External Name: Redirects an in-cluster rquest to a CNAME url..
+
+    # Creating a Node Port
+
+
+    # Setting up Cluster IP Address
+      expose pods in the cluster for other pods
+
+      PostPod => cluster IP Service => EventBus Pod
+      EvetnBusPod => cluster IP Service => envtBus Pod
+
+      build event-bus image
+      docker push docker.io/stram/event-bus
