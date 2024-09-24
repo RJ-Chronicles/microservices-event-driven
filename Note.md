@@ -316,3 +316,56 @@
 
       build event-bus image
       docker push docker.io/stram/event-bus
+
+      kubectl rollout restart deployment event-bus-depl
+
+    # Goals Moving forward
+      Build an image for the event bus
+      Push the image to docker hub
+      create a deployment for event bus
+      create a cluster IP service for event bus and post
+      Wire it all up!
+
+    # How to communicate between service (wire it up)
+
+    # Update Service Address
+
+
+    # Load balancer service
+      send the traffic over the all the different pods
+
+    # Load balancer and ingress
+      A pod with a set of routing rules to distribute traffic to other services
+      Ingress controller will have set of routing rules.
+
+      kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+
+    # Host file tweak [ posts.com ]
+
+
+
+    # Skaffold [helps use to simplify deployment proccess]
+      It is a command line tool. automates many tasks in a kubernets dev environment.
+      make it really easy to update code in running pod
+      Makes it really easy to create/delete all objects tied to a projet at once
+
+      skaffold.dev
+
+# ---------------- Section  3 ---------------------
+## ------- Architecture of Multi-Service app ------
+
+  - Build a central library as an NPM module to share code between our different projects
+  - Precisely define all of our envents in this shared library
+  - Write everything in Typescript
+  - Write tests for as much as possible/reasonable
+  - run a k8s cluster in the cloud and develop on it almost as quickly as local
+  - introduce a lot of code to handle concurrency issue
+
+  # App Overview
+    ------------Ticketing App--------------
+    1: User can list a ticket for an event(concert, sports) for sale
+    2: Other user can purchase this ticket
+    3: Any user can list tickets for sale and purchase tickets
+    4: When a user attempts to purchase a ticket, the ticket is locked for 15 minutes. The user 15 minutes to enter their payment info.
+    5: While locked, no other user can purchase the ticket. After 15 minutes, the ticket should unlock
+    6: ticket prices can be edited if they are not locked
