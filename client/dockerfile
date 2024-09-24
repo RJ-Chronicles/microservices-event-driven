@@ -1,11 +1,23 @@
+# Build stage
+FROM node:alpine AS build
+
+WORKDIR /app
+COPY package.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Production stage
 FROM node:alpine
 
 WORKDIR /app
+COPY --from=build /app/dist ./dist
 
-COPY package.json ./
+# Install serve globally to serve the built files
+RUN npm install -g serve
 
-RUN npm install
+# Expose the correct port
+EXPOSE 5173
 
-COPY ./ ./
-
-CMD ["npm", "start"]
+# Start the server and specify the port
+CMD ["serve", "-s", "dist", "-l", "5173"]

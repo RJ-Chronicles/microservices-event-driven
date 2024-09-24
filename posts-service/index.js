@@ -14,7 +14,7 @@ app.get("/posts", (req, res) => {
   res.send(posts);
 });
 
-app.post("/posts", async (req, res) => {
+app.post("/posts/create", async (req, res) => {
   const id = Date.now();
   const post = {
     id: id,
@@ -23,7 +23,7 @@ app.post("/posts", async (req, res) => {
 
   posts[id] = post;
   try {
-    const response = await axios.post("http://localhost:4005/events", {
+    const response = await axios.post("http://event-bus-srv:4005/events", {
       type: "PostCreated",
       data: {
         ...post,
@@ -42,7 +42,5 @@ app.post("/events", async (req, res) => {
 });
 
 app.listen(4000, () => {
-  console.log('V20');
-  console.log('This is latest 509')
   console.log("Listening Posts on", 4000)
 });
